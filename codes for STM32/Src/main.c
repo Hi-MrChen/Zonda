@@ -32,7 +32,7 @@ uint8_t s_flag;
 volatile uint32_t TimerCnt;
 // imu 
 fp32 gyro[3], accel[3], temp;
-char gyro_s[3][20], accel_s[3][20], temp_s[20]; 
+char gyro_s[3][33], accel_s[3][33], temp_s[33]; 
 /* Variants  ------------------------------------------------------- Variants */
 
 
@@ -280,7 +280,7 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_DMA_Init();
-  //MX_SPI1_Init();
+  MX_SPI1_Init();
 
   MX_USART1_UART_Init();
   MX_USART6_UART_Init();
@@ -308,9 +308,9 @@ int main(void)
 		HAL_TIM_Base_Start(&htim2);
   MX_TIM10_Init();          // Spi -> imu
   while(BMI088_init())
- {
-   HAL_GPIO_WritePin(LED_R_GPIO_Port, LED_R_Pin, GPIO_PIN_SET);  // IMU_init fail：set Red light;
- }
+  {
+    HAL_GPIO_WritePin(LED_R_GPIO_Port, LED_R_Pin, GPIO_PIN_SET);  // IMU_init fail：set Red light;
+  }
   
   HAL_GPIO_WritePin(LED_G_GPIO_Port, LED_G_Pin, GPIO_PIN_SET);  // set Green light
   
