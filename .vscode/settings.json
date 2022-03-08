@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "gpio.h": "c",
+        "winapifamily.h": "c",
+        "dma.h": "c",
+        "main.h": "c",
+        "spi.h": "c",
+        "tim.h": "c"
+    }
+}

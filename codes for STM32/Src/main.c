@@ -32,7 +32,7 @@ uint8_t s_flag;
 volatile uint32_t TimerCnt;
 // imu 
 fp32 gyro[3], accel[3], temp;
-char gyro_s[3][33], accel_s[3][33], temp_s[33]; 
+char gyro_s[3][20], accel_s[3][20], temp_s[20]; 
 /* Variants  ------------------------------------------------------- Variants */
 
 
@@ -88,6 +88,7 @@ void float2int(uint8_t string[], float value){
   string[1] = '0'+ copy % 10;  // 百位
 
 }
+
 uint32_t GetTime(void){
 	return (uint32_t)(htim2.Instance->CNT + TimerCnt * 5000);
 }
@@ -105,23 +106,23 @@ void IMU_read(){
     sprintf(temp_s, "%f", temp);
 
   HAL_UART_Transmit(&huart1, "gyro:", 6, 100);
-  HAL_UART_Transmit(&huart1, gyro_s[0], 33, 100);
+  HAL_UART_Transmit(&huart1, gyro_s[0], 20, 100);
   HAL_UART_Transmit(&huart1, ", ", 3, 100);
-  HAL_UART_Transmit(&huart1, gyro_s[1], 33, 100);
+  HAL_UART_Transmit(&huart1, gyro_s[1], 20, 100);
   HAL_UART_Transmit(&huart1, ", ", 3, 100);
-  HAL_UART_Transmit(&huart1, gyro_s[2], 33, 100);
+  HAL_UART_Transmit(&huart1, gyro_s[2], 20, 100);
   HAL_UART_Transmit(&huart1, "\n", 2, 100);
 
   HAL_UART_Transmit(&huart1, "accel:", 6, 100);
-  HAL_UART_Transmit(&huart1, accel_s[0], 33, 100);
+  HAL_UART_Transmit(&huart1, accel_s[0], 20, 100);
   HAL_UART_Transmit(&huart1, ", ", 3, 100);
-  HAL_UART_Transmit(&huart1, accel_s[1], 33, 100);
+  HAL_UART_Transmit(&huart1, accel_s[1], 20, 100);
   HAL_UART_Transmit(&huart1, ", ", 3, 100);
-  HAL_UART_Transmit(&huart1, accel_s[2], 33, 100);
+  HAL_UART_Transmit(&huart1, accel_s[2], 20, 100);
   HAL_UART_Transmit(&huart1, "\n", 2, 100);
 
   HAL_UART_Transmit(&huart1, "temp:", 5, 100);
-  HAL_UART_Transmit(&huart1, temp_s, 33, 100);
+  HAL_UART_Transmit(&huart1, temp_s, 20, 100);
   HAL_UART_Transmit(&huart1, "\n", 2, 100);
 
 }
@@ -279,7 +280,7 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_DMA_Init();
-  MX_SPI1_Init();
+  //MX_SPI1_Init();
 
   MX_USART1_UART_Init();
   MX_USART6_UART_Init();
@@ -305,13 +306,12 @@ int main(void)
 	MX_TIM2_Init();           // Timer 
 		HAL_TIM_Base_Start_IT(&htim2);
 		HAL_TIM_Base_Start(&htim2);
-  MX_TIM10_Init();          // Spi -> imu
-  while(BMI088_init())
-  {
-    ;
-    // HAL_GPIO_WritePin(LED_R_GPIO_Port, LED_R_Pin, GPIO_PIN_SET);  // IMU_init fail：set Red light;
-    // HAL_Delay(2000); 
-  }
+  //MX_TIM10_Init();          // Spi -> imu
+//  while(BMI088_init())
+//  {
+//    HAL_GPIO_WritePin(LED_R_GPIO_Port, LED_R_Pin, GPIO_PIN_SET);  // IMU_init fail：set Red light;
+//    HAL_Delay(2000); 
+//  }
   
   HAL_GPIO_WritePin(LED_G_GPIO_Port, LED_G_Pin, GPIO_PIN_SET);  // set Green light
   
