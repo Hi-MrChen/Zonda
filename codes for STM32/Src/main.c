@@ -294,9 +294,9 @@ int main(void)
   //usart1_tx_dma_init();     
   local_rc_ctrl = get_remote_control_point(); 
   // LED light off
-    // HAL_GPIO_WritePin(LED_R_GPIO_Port, LED_R_Pin, GPIO_PIN_RESET);
-    // HAL_GPIO_WritePin(LED_G_GPIO_Port, LED_G_Pin, GPIO_PIN_RESET);
-    // HAL_GPIO_WritePin(LED_B_GPIO_Port, LED_B_Pin, GPIO_PIN_RESET); 
+  HAL_GPIO_WritePin(LED_R_GPIO_Port, LED_R_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(LED_G_GPIO_Port, LED_G_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(LED_B_GPIO_Port, LED_B_Pin, GPIO_PIN_RESET); 
 
   // TIM
   MX_TIM1_Init();           // PWM control 
@@ -307,11 +307,10 @@ int main(void)
 		HAL_TIM_Base_Start_IT(&htim2);
 		HAL_TIM_Base_Start(&htim2);
   MX_TIM10_Init();          // Spi -> imu
-//  while(BMI088_init())
-//  {
-//    HAL_GPIO_WritePin(LED_R_GPIO_Port, LED_R_Pin, GPIO_PIN_SET);  // IMU_init fail：set Red light;
-//    HAL_Delay(2000); 
-//  }
+  while(BMI088_init())
+ {
+   HAL_GPIO_WritePin(LED_R_GPIO_Port, LED_R_Pin, GPIO_PIN_SET);  // IMU_init fail：set Red light;
+ }
   
   HAL_GPIO_WritePin(LED_G_GPIO_Port, LED_G_Pin, GPIO_PIN_SET);  // set Green light
   
