@@ -302,7 +302,9 @@ int main(void)
   MX_TIM1_Init();           // PWM control 
     HAL_TIM_Base_Start(&htim1);
     HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
+    __HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_1, 1500);
     HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
+    __HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_2, 1500);
 	MX_TIM2_Init();           // Timer 
 		HAL_TIM_Base_Start_IT(&htim2);
 		HAL_TIM_Base_Start(&htim2);
