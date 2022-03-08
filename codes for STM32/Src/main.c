@@ -32,7 +32,7 @@ uint8_t s_flag;
 volatile uint32_t TimerCnt;
 // imu 
 fp32 gyro[3], accel[3], temp;
-char gyro_s[3][20], accel_s[3][20], temp_s[20]; 
+char gyro_s[3][33], accel_s[3][33], temp_s[33]; 
 /* Variants  ------------------------------------------------------- Variants */
 
 
@@ -294,15 +294,17 @@ int main(void)
   //usart1_tx_dma_init();     
   local_rc_ctrl = get_remote_control_point(); 
   // LED light off
-    // HAL_GPIO_WritePin(LED_R_GPIO_Port, LED_R_Pin, GPIO_PIN_RESET);
-    // HAL_GPIO_WritePin(LED_G_GPIO_Port, LED_G_Pin, GPIO_PIN_RESET);
-    // HAL_GPIO_WritePin(LED_B_GPIO_Port, LED_B_Pin, GPIO_PIN_RESET); 
+  HAL_GPIO_WritePin(LED_R_GPIO_Port, LED_R_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(LED_G_GPIO_Port, LED_G_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(LED_B_GPIO_Port, LED_B_Pin, GPIO_PIN_RESET); 
 
   // TIM
   MX_TIM1_Init();           // PWM control 
     HAL_TIM_Base_Start(&htim1);
     HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
+    __HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_1, 1500);
     HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
+    __HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_2, 1500);
 	MX_TIM2_Init();           // Timer 
 		HAL_TIM_Base_Start_IT(&htim2);
 		HAL_TIM_Base_Start(&htim2);
@@ -310,7 +312,6 @@ int main(void)
   while(BMI088_init())
   {
     HAL_GPIO_WritePin(LED_R_GPIO_Port, LED_R_Pin, GPIO_PIN_SET);  // IMU_init fail：set Red light;
-    HAL_Delay(2000); 
   }
   
   HAL_GPIO_WritePin(LED_G_GPIO_Port, LED_G_Pin, GPIO_PIN_SET);  // set Green light
