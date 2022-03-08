@@ -306,7 +306,7 @@ int main(void)
 	MX_TIM2_Init();           // Timer 
 		HAL_TIM_Base_Start_IT(&htim2);
 		HAL_TIM_Base_Start(&htim2);
-  //MX_TIM10_Init();          // Spi -> imu
+  MX_TIM10_Init();          // Spi -> imu
 //  while(BMI088_init())
 //  {
 //    HAL_GPIO_WritePin(LED_R_GPIO_Port, LED_R_Pin, GPIO_PIN_SET);  // IMU_init fail：set Red light;
