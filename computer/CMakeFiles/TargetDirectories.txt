@@ -1,0 +1,3 @@
+/home/alexzheng/Documents/GitHub/Zonda/codes for computer/CMakeFiles/rebuild_cache.dir
+/home/alexzheng/Documents/GitHub/Zonda/codes for computer/CMakeFiles/edit_cache.dir
+/home/alexzheng/Documents/GitHub/Zonda/codes for computer/CMakeFiles/NN-MPC.dir
